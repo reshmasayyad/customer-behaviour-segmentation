@@ -1,0 +1,9 @@
+step,removed,remaining
+raw_all_sheets,0,1067371
+remove_exact_duplicates,34335,1033036
+require_valid_customer_id,235151,797885
+require_valid_date_price_quantity,0,797885
+exclude_cancellation_invoices,18390,779495
+require_positive_quantity_price,70,779425
+require_merchandise_stock_code,2848,776577
+restrict_to_uk_customers,76969,699608
