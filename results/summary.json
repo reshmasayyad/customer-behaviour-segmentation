@@ -1,0 +1,30 @@
+{
+  "early_window": [
+    "2009-12-01",
+    "2010-06-01"
+  ],
+  "later_window": [
+    "2010-12-01",
+    "2011-06-01"
+  ],
+  "window_days": 182,
+  "model_features": [
+    "recency_days",
+    "frequency_orders",
+    "monetary_gbp",
+    "unique_products"
+  ],
+  "selected_kmeans_k": 2,
+  "selected_gmm_k": 6,
+  "selected_gmm_covariance": "diag",
+  "low_membership_confidence_share_below_0_7": 0.009603841536614645,
+  "mean_max_membership_probability": 0.9909680981392811,
+  "temporal": {
+    "early_active_customers": 2499,
+    "later_active_customers": 2463,
+    "active_in_both": 1349,
+    "no_purchase_in_later_window": 1150,
+    "later_active_not_observed_in_early_window": 1114,
+    "same_segment_share_among_active_in_both": 0.3647146034099333
+  }
+}
