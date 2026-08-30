@@ -9,6 +9,7 @@ from sklearn.mixture import GaussianMixture
 from .features import MODEL_FEATURES
 
 SEED = 42
+GMM_COVARIANCE_FLOOR = 0.01
 
 
 def log_features(features):
@@ -80,7 +81,7 @@ def fit_gmm_candidates(features, counts=range(2, 7), covariance_types=("diag", "
     for covariance in covariance_types:
         for k in counts:
             model = GaussianMixture(n_components=k, covariance_type=covariance, random_state=SEED,
-                                    n_init=5, max_iter=500, reg_covar=1e-4).fit(train)
+                                    n_init=5, max_iter=500, reg_covar=GMM_COVARIANCE_FLOOR).fit(train)
             metrics = clustering_metrics(valid, model.predict(valid))
             rows.append({"model": "GMM", "k": k, "covariance_type": covariance,
                          "bic": model.bic(train), "validation_log_likelihood": model.score(valid),
@@ -94,7 +95,7 @@ def fit_gmm_candidates(features, counts=range(2, 7), covariance_types=("diag", "
     final_scaler = StandardScaler().fit(raw)
     final_values = final_scaler.transform(raw)
     model = GaussianMixture(n_components=int(best.k), covariance_type=best.covariance_type,
-                            random_state=SEED, n_init=10, max_iter=500, reg_covar=1e-4).fit(final_values)
+                            random_state=SEED, n_init=10, max_iter=500, reg_covar=GMM_COVARIANCE_FLOOR).fit(final_values)
     if not model.converged_:
         raise RuntimeError("Final Gaussian mixture did not converge")
     return {"scaler": final_scaler, "model": model, "values": final_values, "candidates": candidates,

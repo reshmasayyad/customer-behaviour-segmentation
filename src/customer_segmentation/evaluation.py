@@ -80,7 +80,7 @@ def temporal_comparison(early_labels, later_labels):
     return transitions, cohort_table, summary
 
 
-def regularization_sensitivity(bundle, features, values=(0.001, 0.01, 0.05)):
+def regularization_sensitivity(bundle, features, values=(0.0001, 0.001, 0.05)):
     """Test covariance floors with fixed k, feature space and model family.
 
     Count features can cause nearly point-mass Gaussian components; high mixture

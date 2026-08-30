@@ -15,16 +15,16 @@
     "unique_products"
   ],
   "selected_kmeans_k": 2,
-  "selected_gmm_k": 6,
-  "selected_gmm_covariance": "diag",
-  "low_membership_confidence_share_below_0_7": 0.009603841536614645,
-  "mean_max_membership_probability": 0.9909680981392811,
+  "selected_gmm_k": 5,
+  "selected_gmm_covariance": "full",
+  "low_membership_confidence_share_below_0_7": 0.024409763905562223,
+  "mean_max_membership_probability": 0.9662116675768343,
   "temporal": {
     "early_active_customers": 2499,
     "later_active_customers": 2463,
     "active_in_both": 1349,
     "no_purchase_in_later_window": 1150,
     "later_active_not_observed_in_early_window": 1114,
-    "same_segment_share_among_active_in_both": 0.3647146034099333
+    "same_segment_share_among_active_in_both": 0.4143810229799852
   }
 }
