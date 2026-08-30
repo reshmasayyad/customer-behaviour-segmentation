@@ -1,0 +1,4 @@
+customer_id,recency_days,frequency_orders,monetary_gbp,unique_products,window_days
+demo_001,90,1,200,12,182
+demo_002,30,3,900,45,182
+demo_003,5,14,6000,110,182

@@ -3,7 +3,7 @@ from pathlib import Path
 from .data import prepare_data
 from .features import customer_features, future_outcomes, EARLY_WINDOW, LATER_WINDOW
 from .models import fit_kmeans_candidates, fit_gmm_candidates
-from .evaluation import segment_names, label_series, bootstrap_stability, segment_profiles, temporal_comparison
+from .evaluation import segment_names, label_series, bootstrap_stability, segment_profiles, temporal_comparison, regularization_sensitivity
 from .reporting import save_results, make_figures
 
 
@@ -32,9 +32,11 @@ def run_analysis(root, repetitions=20, verbose=True):
     transitions, cohort, temporal = temporal_comparison(early_labels, later_labels)
     summary = save_results(root, early, later, km, gmm, early_labels, later_labels, profiles,
                            later_profiles, bootstrap, transitions, cohort, temporal)
+    sensitivity = regularization_sensitivity(gmm, early)
+    sensitivity.to_csv(root / "results/regularization_sensitivity.csv", index=False)
     make_figures(root, purchases, early, gmm, early_labels, profiles, transitions, cohort, bootstrap)
     progress("Saved aggregate results, figures, customer-level local tables, and fitted model.")
     return {"purchases": purchases, "audit": audit, "early": early, "later": later, "km": km, "gmm": gmm,
             "early_labels": early_labels, "later_labels": later_labels, "profiles": profiles,
             "later_profiles": later_profiles, "bootstrap": bootstrap, "transitions": transitions,
-            "cohort": cohort, "summary": summary}
+            "cohort": cohort, "summary": summary, "sensitivity": sensitivity}

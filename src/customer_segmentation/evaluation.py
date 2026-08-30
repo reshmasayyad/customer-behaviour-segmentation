@@ -78,3 +78,22 @@ def temporal_comparison(early_labels, later_labels):
         "same_segment_share_among_active_in_both": float((early_labels.loc[shared] == later_labels.loc[shared]).mean()),
     }
     return transitions, cohort_table, summary
+
+
+def regularization_sensitivity(bundle, features, values=(0.001, 0.01, 0.05)):
+    """Test covariance floors with fixed k, feature space and model family.
+
+    Count features can cause nearly point-mass Gaussian components; high mixture
+    confidence is not evidence that business segments are well calibrated.
+    """
+    scaled = bundle["scaler"].transform(log_features(features))
+    reference = bundle["model"].predict(scaled)
+    rows = []
+    for regularization in values:
+        model = clone(bundle["model"]).set_params(reg_covar=regularization, random_state=SEED, n_init=5)
+        model.fit(scaled)
+        rows.append({"regularization": regularization,
+                     "ari_to_primary": adjusted_rand_score(reference, model.predict(scaled)),
+                     "mean_membership_confidence": model.predict_proba(scaled).max(axis=1).mean(),
+                     "converged": bool(model.converged_)})
+    return pd.DataFrame(rows)

@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "customer-behaviour-segmentation"
 version = "1.0.0"
 description = "Customer segmentation with probabilistic membership and temporal stability analysis"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = ["numpy", "pandas", "scipy", "scikit-learn", "matplotlib", "openpyxl"]
 
 [project.optional-dependencies]
